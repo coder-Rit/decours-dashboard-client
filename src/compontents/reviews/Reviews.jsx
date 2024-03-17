@@ -72,7 +72,7 @@ const Reviews = () => {
 
   return (
     <div className="section">
-      <h2>3. Reviews Section Section</h2>
+      <h2>6. Reviews Section Section</h2>
 
       <div className="marginBottom15px">
         <TextField

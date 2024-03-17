@@ -47,7 +47,7 @@ const Brands = () => {
 
   return (
     <div className="section">
-      <h2>6. Brand Section</h2>
+      <h2>7. Brand Section</h2>
 
       <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
       
