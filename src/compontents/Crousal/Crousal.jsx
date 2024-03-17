@@ -24,7 +24,7 @@ const Carousel = () => {
     }
 
     const response = await axios.post(
-      "http://localhost:4000/api/v1/updateCarousel",
+      "https://decours-dashboard-server.onrender.com/api/v1/updateCarousel",
       [
         {
           coursalUrl: imagePreview_1,

@@ -16,7 +16,7 @@ const AboutSection = () => {
     }
 
     const response = await axios.post(
-      "http://localhost:4000/api/v1/updateAboutSection",
+      "https://decours-dashboard-server.onrender.com/api/v1/updateAboutSection",
       {
         aboutUrl: imagePreview,
         title: title,
