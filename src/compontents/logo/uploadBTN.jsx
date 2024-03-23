@@ -18,6 +18,16 @@ const VisuallyHiddenInput = styled("input")({
   width: 1,
 });
 
+const btnStyle ={
+  "&:hover":{
+    backgroundColor:"white",
+    color:"black"
+    
+  },
+  backgroundColor:"#a1a1a1",
+  color:"black"
+}
+
 export default function InputFileUpload({ set_imagePreview }) {
   const [newLogo, set_newLogo] = useState();
 
@@ -31,9 +41,8 @@ export default function InputFileUpload({ set_imagePreview }) {
 
       try {
         const url = await uploadFiles(selectedFile, "logo");
-        set_imagePreview(url)
+        set_imagePreview(url);
       } catch (error) {
-
         console.log(error);
       }
     } else {
@@ -44,14 +53,13 @@ export default function InputFileUpload({ set_imagePreview }) {
     }
   };
 
-
-
   return (
     <>
       <Button
         component="label"
         role={undefined}
         variant="contained"
+        sx={btnStyle}
         tabIndex={-1}
         startIcon={<CloudUploadIcon />}
       >
@@ -62,7 +70,6 @@ export default function InputFileUpload({ set_imagePreview }) {
           onChange={handleImageChange}
         />
       </Button>
-      
     </>
   );
 }

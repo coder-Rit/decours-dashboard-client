@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputFileUpload from "../logo/uploadBTN";
 import { Button, TextField } from "@mui/material";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import axios from "axios";
+import ResponsiveAppBar from "../NavBar/ResponsiveAppBar";
+import InputFiled, { InputArea } from "../InputFiled";
+import { btnStyle } from "../styles";
+import { auth } from "../../firebase";
 
 const Reviews = () => {
   const [imagePreview_1, set_imagePreview_1] = useState("");
@@ -29,6 +33,11 @@ const Reviews = () => {
     if (!imagePreview_1 || !imagePreview_2 || !imagePreview_3) {
       toast.error("plz complete the section");
       return;
+    }
+
+    if (!auth.currentUser) {
+      toast.error("Unable to Verify")
+      return
     }
 
     const response = await axios.post(
@@ -70,224 +79,234 @@ const Reviews = () => {
     toast.success(response.data.msg);
   };
 
+  async function getReviewsInfo() {
+    try {
+      const response = await axios.get(
+        "https://decours-dashboard-server.onrender.com/api/v1/getReviews"
+      ); // Replace with your API endpoint
+
+      if (!response.data.data) {
+        console.log("no api data");
+        return;
+      }
+
+      set_title(response.data.data[0].title);
+      set_discript(response.data.data[0].discript);
+
+
+      let info = response.data.data[0].data[0];
+      set_imagePreview_1(info.profileImage);
+      set_title_1(info.title);
+      set_discript_1(info.discript);
+      
+       info = response.data.data[0].data[1];
+      set_imagePreview_2(info.profileImage);
+      set_title_2(info.title);
+      set_discript_2(info.discript);
+      
+       info = response.data.data[0].data[2];
+      set_imagePreview_3(info.profileImage);
+      set_title_3(info.title);
+      set_discript_3(info.discript);
+      
+       info = response.data.data[0].data[3];
+      set_imagePreview_4(info.profileImage);
+      set_title_4(info.title);
+      set_discript_4(info.discript);
+      
+       info = response.data.data[0].data[4];
+      set_imagePreview_5(info.profileImage);
+      set_title_5(info.title);
+      set_discript_5(info.discript);
+
+       
+    } catch (error) {
+      console.error("Error fetching image URL:", error);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    getReviewsInfo();
+  }, []);
+
   return (
     <div className="section">
-      <h2>6. Reviews Section Section</h2>
+      <ResponsiveAppBar></ResponsiveAppBar>
+ 
+      <h2>Reviews Section</h2>
 
-      <div className="marginBottom15px">
-        <TextField
-          id="outlined-basic"
-          label="Profile Name"
-          variant="outlined"
-          sx={{ width: "100%", maxWidth: "400px" }}
-          value={title}
-          onChange={(e) => set_title(e.target.value)}
-        />
-      </div>
-      <div>
-        <TextField
-          id="outlined-multiline-static"
-          label="Toughts..."
-          multiline
-          rows={4}
-          sx={{ width: "100%", maxWidth: "600px" }}
-          value={discript}
-          onChange={(e) => set_discript(e.target.value)}
-        />
-      </div>
+      <div className="flex-center-center">
+        <div className="marginBottom15px">
+          <InputFiled value={title} set_value={set_title} />
 
-      <hr />
-
-      <div>
-        <div>
-          <div>
-            <div>
-              <h4>Reviews 1</h4>
-              <p>Profile Image 1</p>
-
-              <InputFileUpload
-                set_imagePreview={set_imagePreview_1}
-              ></InputFileUpload>
-            </div>
-          </div>
-          <div>
-            <img src={imagePreview_1} width="200px" />
-          </div>
-
-          <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Profile Name"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_1}
-              onChange={(e) => set_title_1(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Toughts..."
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
-              value={discript_1}
-              onChange={(e) => set_discript_1(e.target.value)}
-            />
-          </div>
+          <InputArea value={discript} set_value={set_discript} />
         </div>
-        <hr />
-        <div>
-          <div>
+
+        <div className="flex-col-wrap">
+          <div className="flex-center-center gutterbottom10">
             <div>
-              <h4>Reviews 2</h4>
-              <p>Profile Image 2</p>
-              <InputFileUpload
-                set_imagePreview={set_imagePreview_2}
-              ></InputFileUpload>
+              <div className="flex-center-center gutterbottom10">
+                <h4>Reviews 1</h4>
+                <div
+                  className="imagePreviewDIv gutterbottom10"
+                  style={{
+                    height: "150px",
+                    width: "150px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <img
+                    src={imagePreview_1}
+                    width="100px"
+                    style={{ borderRadius: "50%" }}
+                  />
+                </div>
+
+                <InputFileUpload
+                  set_imagePreview={set_imagePreview_1}
+                ></InputFileUpload>
+              </div>
+            </div>
+
+            <div className="marginBottom15px">
+              <InputFiled value={title_1} set_value={set_title_1} />
+
+              <InputArea value={discript_1} set_value={set_discript_1} />
             </div>
           </div>
-          <div>
-            <img src={imagePreview_2} width="200px" />
-          </div>
 
-          <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Profile Name"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_2}
-              onChange={(e) => set_title_2(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Toughts..."
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
-              value={discript_2}
-              onChange={(e) => set_discript_2(e.target.value)}
-            />
-          </div>
-        </div>
-        <hr />
-
-        <div>
-          <div>
+          <div className="flex-center-center gutterbottom10">
             <div>
-              <h4>Reviews 3</h4>
-              <p>Profile Image 3</p>
-              <InputFileUpload
-                set_imagePreview={set_imagePreview_3}
-              ></InputFileUpload>
+              <div className="flex-center-center gutterbottom10">
+                <h4>Reviews 2</h4>
+                <div
+                  className="imagePreviewDIv gutterbottom10"
+                  style={{
+                    height: "150px",
+                    width: "150px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <img
+                    src={imagePreview_2}
+                    width="100px"
+                    style={{ borderRadius: "50%" }}
+                  />
+                </div>
+
+                <InputFileUpload
+                  set_imagePreview={set_imagePreview_2}
+                ></InputFileUpload>
+              </div>
+            </div>
+
+            <div className="marginBottom15px">
+              <InputFiled value={title_2} set_value={set_title_2} />
+
+              <InputArea value={discript_2} set_value={set_discript_2} />
             </div>
           </div>
-          <div>
-            <img src={imagePreview_3} width="200px" />
-          </div>
 
-          <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Profile Name"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_3}
-              onChange={(e) => set_title_3(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Toughts..."
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
-              value={discript_3}
-              onChange={(e) => set_discript_3(e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
+          <div className="flex-center-center gutterbottom10">
             <div>
-              <h4>Reviews 4</h4>
-              <p>Profile Image 4</p>
-              <InputFileUpload
-                set_imagePreview={set_imagePreview_4}
-              ></InputFileUpload>
+              <div className="flex-center-center gutterbottom10">
+                <h4>Reviews 3</h4>
+                <div
+                  className="imagePreviewDIv gutterbottom10"
+                  style={{
+                    height: "150px",
+                    width: "150px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <img
+                    src={imagePreview_3}
+                    width="100px"
+                    style={{ borderRadius: "50%" }}
+                  />
+                </div>
+
+                <InputFileUpload
+                  set_imagePreview={set_imagePreview_3}
+                ></InputFileUpload>
+              </div>
+            </div>
+
+            <div className="marginBottom15px">
+              <InputFiled value={title_3} set_value={set_title_3} />
+
+              <InputArea value={discript_3} set_value={set_discript_3} />
             </div>
           </div>
-          <div>
-            <img src={imagePreview_4} width="200px" />
-          </div>
-
-          <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Profile Name"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_4}
-              onChange={(e) => set_title_4(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Toughts..."
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
-              value={discript_4}
-              onChange={(e) => set_discript_4(e.target.value)}
-            />
-          </div>
-        </div>
-        <div>
-          <div>
+          <div className="flex-center-center gutterbottom10">
             <div>
-              <h4>Reviews 5</h4>
-              <p>Profile Image 5</p>
-              <InputFileUpload
-                set_imagePreview={set_imagePreview_5}
-              ></InputFileUpload>
+              <div className="flex-center-center gutterbottom10">
+                <h4>Reviews 4</h4>
+                <div
+                  className="imagePreviewDIv gutterbottom10"
+                  style={{
+                    height: "150px",
+                    width: "150px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <img
+                    src={imagePreview_4}
+                    width="100px"
+                    style={{ borderRadius: "50%" }}
+                  />
+                </div>
+
+                <InputFileUpload
+                  set_imagePreview={set_imagePreview_4}
+                ></InputFileUpload>
+              </div>
+            </div>
+
+            <div className="marginBottom15px">
+              <InputFiled value={title_4} set_value={set_title_4} />
+
+              <InputArea value={discript_4} set_value={set_discript_4} />
             </div>
           </div>
-          <div>
-            <img src={imagePreview_5} width="200px" />
-          </div>
+          <div className="flex-center-center gutterbottom10">
+            <div>
+              <div className="flex-center-center gutterbottom10">
+                <h4>Reviews 5</h4>
+                <div
+                  className="imagePreviewDIv gutterbottom10"
+                  style={{
+                    height: "150px",
+                    width: "150px",
+                    borderRadius: "50%",
+                  }}
+                >
+                  <img
+                    src={imagePreview_5}
+                    width="100px"
+                    style={{ borderRadius: "50%" }}
+                  />
+                </div>
 
-          <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Profile Name"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_5}
-              onChange={(e) => set_title_5(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Toughts..."
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
-              value={discript_5}
-              onChange={(e) => set_discript_5(e.target.value)}
-            />
+                <InputFileUpload
+                  set_imagePreview={set_imagePreview_5}
+                ></InputFileUpload>
+              </div>
+            </div>
+
+            <div className="marginBottom15px">
+              <InputFiled value={title_5} set_value={set_title_5} />
+
+              <InputArea value={discript_5} set_value={set_discript_5} />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="update_section_btn">
-        <Button variant="contained" onClick={updateReviews}>
-          Update Reviews Section
+      <div className="update_section_btn flex-center-center gutterbottom10">
+        <Button variant="contained" onClick={updateReviews} sx={btnStyle}>
+         Apply Changes
         </Button>
       </div>
     </div>

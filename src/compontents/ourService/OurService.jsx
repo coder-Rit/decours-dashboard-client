@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import InputFileUpload from "../logo/uploadBTN";
 import { Button, TextField } from "@mui/material";
-import { toast } from "sonner";
+import { toast, Toaster } from "sonner";
 import axios from "axios";
+import ResponsiveAppBar from "../NavBar/ResponsiveAppBar";
+import InputFiled from "../InputFiled";
+import { useEffect } from "react";
+import { btnStyle } from "../styles";
+import { auth } from "../../firebase";
 
 const OurService = () => {
   const [imagePreview_1, set_imagePreview_1] = useState("");
@@ -30,6 +35,10 @@ const OurService = () => {
     ) {
       toast.error("plz complete the section");
       return;
+    }
+    if (!auth.currentUser) {
+      toast.error("Unable to Verify")
+      return
     }
 
     const response = await axios.post(
@@ -65,125 +74,159 @@ const OurService = () => {
     toast.success(response.data.msg);
   };
 
+
+  async function getServiceInfo() {
+    try {
+      const response = await axios.get(
+        "https://decours-dashboard-server.onrender.com/api/v1/getOurService"
+      ); // Replace with your API endpoint
+      
+
+      if (!response.data.data) {
+        console.log("no api data");
+        return;
+      }
+ 
+        let info = response.data.data[0].data[0];
+        set_imagePreview_1(info.serviceUrl);
+        set_title_1(info.title);
+        
+         info = response.data.data[0].data[1];
+        set_imagePreview_2(info.serviceUrl);
+        set_title_2(info.title);
+        
+         info = response.data.data[0].data[2];
+        set_imagePreview_3(info.serviceUrl);
+        set_title_3(info.title);
+        
+         info = response.data.data[0].data[3];
+        set_imagePreview_4(info.serviceUrl);
+        set_title_4(info.title);
+        
+         info = response.data.data[0].data[4];
+        set_imagePreview_5(info.serviceUrl);
+        set_title_5(info.title);
+        
+         info = response.data.data[0].data[5];
+        set_imagePreview_6(info.serviceUrl);
+        set_title_6(info.title);
+        
+        
+
+
+    } catch (error) {
+      console.error("Error fetching image URL:", error);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    getServiceInfo()
+  }, [ ])
+  
+
   return (
     <div className="section">
-      <h2>4. Our Service Section</h2>
-       
+      <ResponsiveAppBar></ResponsiveAppBar>
+ 
+      <h2>Our Service Section</h2>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-        <div style={{ display: "flex", gap: "20px" }}>
+      <div className="flex-col-wrap gutterbottom10">
+        <div className="flex-center-center gutterbottom10">
+          <h4>Service 1</h4>
+          <div
+            className="imagePreviewDIv gutterbottom10"
+            style={{ height: "250px", width: "300px" }}
+          >
+            <img src={imagePreview_1} height="200px" />
+          </div>
           <InputFileUpload
             set_imagePreview={set_imagePreview_1}
           ></InputFileUpload>
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title_"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px", height: "40px" }}
-              value={title_1}
-              onChange={(e) => set_title_1(e.target.value)}
-            />
-          </div>
-          <div>
-            <img src={imagePreview_1} height="40px" />
+            <InputFiled value={title_1} set_value={set_title_1}></InputFiled>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div className="flex-center-center gutterbottom10">
+          <h4>Service 2</h4>
+          <div
+            className="imagePreviewDIv gutterbottom10"
+            style={{ height: "250px", width: "300px" }}
+          >
+            <img src={imagePreview_2} height="200px" />
+          </div>
           <InputFileUpload
             set_imagePreview={set_imagePreview_2}
           ></InputFileUpload>
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title_"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px", height: "40px" }}
-              value={title_2}
-              onChange={(e) => set_title_2(e.target.value)}
-            />
-          </div>
-          <div>
-            <img src={imagePreview_2} height="40px" />
+            <InputFiled value={title_2} set_value={set_title_2}></InputFiled>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div className="flex-center-center gutterbottom10">
+          <h4>Service 3</h4>
+          <div
+            className="imagePreviewDIv gutterbottom10"
+            style={{ height: "250px", width: "300px" }}
+          >
+            <img src={imagePreview_3} height="200px" />
+          </div>
           <InputFileUpload
             set_imagePreview={set_imagePreview_3}
           ></InputFileUpload>
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title_"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px", height: "40px" }}
-              value={title_3}
-              onChange={(e) => set_title_3(e.target.value)}
-            />
-          </div>
-          <div>
-            <img src={imagePreview_3} height="40px" />
+            <InputFiled value={title_3} set_value={set_title_3}></InputFiled>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div className="flex-center-center gutterbottom10">
+          <h4>Service 4</h4>{" "}
+          <div
+            className="imagePreviewDIv gutterbottom10"
+            style={{ height: "250px", width: "300px" }}
+          >
+            <img src={imagePreview_4} height="200px" />
+          </div>
           <InputFileUpload
             set_imagePreview={set_imagePreview_4}
           ></InputFileUpload>
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title_"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px", height: "40px" }}
-              value={title_4}
-              onChange={(e) => set_title_4(e.target.value)}
-            />
-          </div>
-          <div>
-            <img src={imagePreview_4} height="40px" />
+            <InputFiled value={title_4} set_value={set_title_4}></InputFiled>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div className="flex-center-center gutterbottom10">
+          <h4>Service 5</h4>{" "}
+          <div
+            className="imagePreviewDIv gutterbottom10"
+            style={{ height: "250px", width: "300px" }}
+          >
+            <img src={imagePreview_5} height="200px" />
+          </div>
           <InputFileUpload
             set_imagePreview={set_imagePreview_5}
           ></InputFileUpload>
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title_"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px", height: "40px" }}
-              value={title_5}
-              onChange={(e) => set_title_5(e.target.value)}
-            />
-          </div>
-          <div>
-            <img src={imagePreview_5} height="40px" />
+            <InputFiled value={title_5} set_value={set_title_5}></InputFiled>
           </div>
         </div>
-        <div style={{ display: "flex", gap: "20px" }}>
+        <div className="flex-center-center gutterbottom10">
+          <h4>Service 6</h4>
+          <div
+            className="imagePreviewDIv gutterbottom10"
+            style={{ height: "250px", width: "300px" }}
+          >
+            <img src={imagePreview_6} height="200px" />
+          </div>
           <InputFileUpload
             set_imagePreview={set_imagePreview_6}
           ></InputFileUpload>
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title_"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px", height: "40px" }}
-              value={title_6}
-              onChange={(e) => set_title_6(e.target.value)}
-            />
-          </div>
-          <div>
-            <img src={imagePreview_6} height="40px" />
+            <InputFiled value={title_6} set_value={set_title_6}></InputFiled>
           </div>
         </div>
       </div>
 
-      <div className="update_section_btn">
-        <Button variant="contained" onClick={updateOurService}>
-          Update Our Service Section
+      <div className="update_section_btn flex-center-center">
+        <Button variant="contained" onClick={updateOurService}  sx={btnStyle}>
+          Apply Changes
         </Button>
       </div>
     </div>

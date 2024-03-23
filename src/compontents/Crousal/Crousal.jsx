@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import InputFileUpload from "../logo/uploadBTN";
 import { Button, TextField } from "@mui/material";
-import { toast } from "sonner";
+import { Toaster, toast } from "sonner";
 import axios from "axios";
+import ResponsiveAppBar from "../NavBar/ResponsiveAppBar";
+import InputFiled, { InputArea } from "../InputFiled";
+import { useEffect } from "react";
+import { btnStyle } from "../styles";
+import { auth } from "../../firebase";
 
 const Carousel = () => {
   const [imagePreview_1, set_imagePreview_1] = useState("");
@@ -21,6 +26,11 @@ const Carousel = () => {
     if (!imagePreview_1 || !imagePreview_2 || !imagePreview_3) {
       toast.error("plz complete the section");
       return;
+    }
+
+    if (!auth.currentUser) {
+      toast.error("Unable to Verify")
+      return
     }
 
     const response = await axios.post(
@@ -47,124 +57,126 @@ const Carousel = () => {
     toast.success(response.data.msg);
   };
 
+  async function getCrousalInfo() {
+    try {
+      const response = await axios.get(
+        "https://decours-dashboard-server.onrender.com/api/v1/getCarousel"
+      ); // Replace with your API endpoint
+
+      if (!response.data.data) {
+        console.log("no api data");
+        return;
+      }
+
+      let info = response.data.data[0].data[0];
+      set_imagePreview_1(info.coursalUrl);
+      set_title_1(info.title);
+      set_discript_1(info.discript);
+
+      info = response.data.data[0].data[1];
+      set_imagePreview_2(info.coursalUrl);
+      set_title_2(info.title);
+      set_discript_2(info.discript);
+
+      info = response.data.data[0].data[2];
+      set_imagePreview_3(info.coursalUrl);
+      set_title_3(info.title);
+      set_discript_3(info.discript);
+    } catch (error) {
+      console.error("Error fetching image URL:", error);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    getCrousalInfo();
+  }, []);
+
   return (
     <div className="section">
-      <h2>3. Crousal Section Section</h2>
+      <ResponsiveAppBar></ResponsiveAppBar>
+ 
+      <h2>Crousal Section Section</h2>
 
-      <div>
-        <div>
+      <div className="flex-col-wrap">
+        <div className="flex-center-center gutterbottom10">
           <div>
-            <div>
+            <div className="flex-center-center gutterbottom10">
               <h4>Carousel 1</h4>
+              <div
+                className="imagePreviewDIv gutterbottom10"
+                style={{ height: "250px", width: "400px" }}
+              >
+                <img src={imagePreview_1} width="350px" />
+              </div>
               <InputFileUpload
                 set_imagePreview={set_imagePreview_1}
               ></InputFileUpload>
             </div>
           </div>
-          <div>
-            <img src={imagePreview_1} width="200px" />
-          </div>
 
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_1}
-              onChange={(e) => set_title_1(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Description"
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
+            <InputFiled value={title_1} set_value={set_title_1}></InputFiled>
+            <InputArea
               value={discript_1}
-              onChange={(e) => set_discript_1(e.target.value)}
-            />
+              set_value={set_discript_1}
+            ></InputArea>
           </div>
         </div>
-        <hr />
-        <div>
+        <div className="flex-center-center gutterbottom10">
           <div>
-            <div>
+            <div className="flex-center-center gutterbottom10">
               <h4>Carousel 2</h4>
+              <div
+                className="imagePreviewDIv gutterbottom10"
+                style={{ height: "250px", width: "400px" }}
+              >
+                <img src={imagePreview_2} width="350px" />
+              </div>
               <InputFileUpload
                 set_imagePreview={set_imagePreview_2}
               ></InputFileUpload>
             </div>
           </div>
-          <div>
-            <img src={imagePreview_2} width="200px" />
-          </div>
 
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_2}
-              onChange={(e) => set_title_2(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Description"
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
+            <InputFiled value={title_2} set_value={set_title_2}></InputFiled>
+            <InputArea
               value={discript_2}
-              onChange={(e) => set_discript_2(e.target.value)}
-            />
+              set_value={set_discript_2}
+            ></InputArea>
           </div>
         </div>
-        <hr />
 
-        <div>
+        <div className="flex-center-center gutterbottom10">
           <div>
-            <div>
+            <div className="flex-center-center gutterbottom10">
               <h4>Carousel 3</h4>
+              <div
+                className="imagePreviewDIv gutterbottom10"
+                style={{ height: "250px", width: "400px" }}
+              >
+                <img src={imagePreview_3} width="350px" />
+              </div>
               <InputFileUpload
                 set_imagePreview={set_imagePreview_3}
               ></InputFileUpload>
             </div>
           </div>
-          <div>
-            <img src={imagePreview_3} width="200px" />
-          </div>
 
           <div className="marginBottom15px">
-            <TextField
-              id="outlined-basic"
-              label="Title"
-              variant="outlined"
-              sx={{ width: "100%", maxWidth: "400px" }}
-              value={title_3}
-              onChange={(e) => set_title_3(e.target.value)}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-multiline-static"
-              label="Description"
-              multiline
-              rows={4}
-              sx={{ width: "100%", maxWidth: "600px" }}
+            <InputFiled value={title_3} set_value={set_title_3}></InputFiled>
+            <InputArea
               value={discript_3}
-              onChange={(e) => set_discript_3(e.target.value)}
-            />
+              set_value={set_discript_3}
+            ></InputArea>
           </div>
         </div>
       </div>
 
-      <div className="update_section_btn">
-        <Button variant="contained" onClick={updateCarousel}>
-          Update Crousal Section
+      <div className="update_section_btn flex-center-center">
+        <Button variant="contained" onClick={updateCarousel} sx={btnStyle}>
+        Apply Changes
         </Button>
       </div>
     </div>
