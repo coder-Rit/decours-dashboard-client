@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&family=Kode+Mono:wght@400..700&family=Poppins:wght@400;700&display=swap');
-  
+
 
 body {
   overflow-x: hidden;
@@ -24,7 +24,8 @@ body {
   margin-bottom: 15px;
 }
 
-h2,h4 {
+h2,
+h4 {
   color: #D05FEB;
   text-align: center;
   font-family: "Kode Mono", monospace;
@@ -51,6 +52,15 @@ h2,h4 {
 
 }
 
+@media only screen and (max-width: 950px) {
+  .mainDiv {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding-top: 50px;
+  }
+}
+
+
 
 
 .mainDiv>div {
@@ -74,6 +84,24 @@ h2,h4 {
 
 }
 
+@media only screen and (max-width: 700px) {
+
+  .mainDiv>div {
+    width: 150px;
+    height: 150px;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 700px) {
+  
+  .mainDiv {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    padding-top: 50px;
+  }
+  
+}
+
 .mainDiv>div:hover {
   text-decoration: underline;
 }
@@ -87,8 +115,8 @@ h2,h4 {
   transform: scaleX(1.10);
 }
 
-.imagePreviewDIv{
-   
+.imagePreviewDIv {
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,33 +124,36 @@ h2,h4 {
   padding: 10px;
   background-color: rgba(152, 152, 152, 0.219);
 }
-.flex-center-center{
+
+.flex-center-center {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.gutterbottom10{
+.gutterbottom10 {
   margin-bottom: 10px;
 }
 
 
-.flex-col-wrap{
+.flex-col-wrap {
   display: flex;
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
 }
 
-.flex_reverce{
+.flex_reverce {
   display: flex;
   flex-direction: column-reverse;
 }
-.imagePreviewDiv-white{
+
+.imagePreviewDiv-white {
   background-color: rgba(255, 255, 255, 0.641);
   cursor: pointer;
 }
-.imagePreviewDiv-white:hover{
+
+.imagePreviewDiv-white:hover {
   background-color: rgb(255, 255, 255);
 }
 
@@ -139,9 +170,9 @@ h2,h4 {
 
 
 
- /* input style */
+/* input style */
 
- .form__group {
+.form__group {
   position: relative;
   padding: 15px 0 0;
   margin-top: 10px;
@@ -161,10 +192,12 @@ h2,h4 {
   background: transparent;
   transition: border-color 0.2s;
 }
+
 .form__field::placeholder {
   color: transparent;
 }
-.form__field:placeholder-shown ~ .form__label {
+
+.form__field:placeholder-shown~.form__label {
   font-size: 1.3rem;
   cursor: text;
   top: 20px;
@@ -186,7 +219,8 @@ h2,h4 {
   border-color: white;
   border-image-slice: 1;
 }
-.form__field:focus ~ .form__label {
+
+.form__field:focus~.form__label {
   position: absolute;
   top: 0;
   display: block;
@@ -197,9 +231,7 @@ h2,h4 {
 }
 
 /* reset input */
-.form__field:required, .form__field:invalid {
+.form__field:required,
+.form__field:invalid {
   box-shadow: none;
 }
-
- 
- 
