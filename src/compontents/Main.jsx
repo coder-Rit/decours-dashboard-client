@@ -125,8 +125,10 @@ const Main = () => {
               stiffness: 260,
               damping: 20,
             }}
+            onClick={() => redirector("/Users")}
+
           >
-            More+
+            Users
           </motion.div>
         </div>
       </div>

@@ -15,6 +15,7 @@ const SignIn = () => {
     });
   };
 
+
   const handleLogout = async () => {
     try {
       await auth.signOut();
@@ -22,6 +23,7 @@ const SignIn = () => {
       setValue("");
       toast.success("Sign Out Successful");
       console.log("User logged out successfully");
+      
       // Optionally, you can redirect or perform other actions after logout
     } catch (error) {
       console.error("Error logging out:", error);
@@ -47,7 +49,7 @@ const SignIn = () => {
                 display: "flex",
                 justifyContent: "center",
                 gap: "5px",
-                color: "green",
+                color: "#76ff03",
                 cursor: "pointer",
               }}
             >

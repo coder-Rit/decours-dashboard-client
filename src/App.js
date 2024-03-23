@@ -12,6 +12,7 @@ import OurWork from "./compontents/work/OurWork";
 import Reviews from "./compontents/reviews/Reviews";
 import Brands from "./compontents/Brands/Brands";
 import ProtectedRoute from "./compontents/ProtectedRoute";
+import UsersPage from "./compontents/users/UsersPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/Work" element={ <ProtectedRoute comp={<OurWork />}></ProtectedRoute>} />
         <Route path="/Reviews" element={ <ProtectedRoute comp={<Reviews />}></ProtectedRoute>} />
         <Route path="/Brands" element={ <ProtectedRoute comp={<Brands />}></ProtectedRoute>} />
+        <Route path="/Users" element={ <ProtectedRoute comp={<UsersPage />}></ProtectedRoute>} />
       </Routes>
     </Router>
   );
