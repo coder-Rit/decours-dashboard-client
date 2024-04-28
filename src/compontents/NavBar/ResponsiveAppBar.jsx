@@ -46,7 +46,7 @@ function ResponsiveAppBar() {
   async function getImageUrl() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getLogo"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getLogo"
       ); // Replace with your API endpoint
 
       if (!response.data.data) {

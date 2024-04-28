@@ -22,7 +22,7 @@ const Brands = () => {
       return
     }
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/updateBrands",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/updateBrands",
       {
         brandUrls: [
           {
@@ -53,7 +53,7 @@ const Brands = () => {
   async function getBrandInfo() {
     try {
       const { data } = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getBrands"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getBrands"
       ); // Replace with your API endpoint
 
       if (!data.data) {

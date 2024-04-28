@@ -26,7 +26,7 @@ const AboutSection = () => {
     }
 
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/updateAboutSection",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/updateAboutSection",
       {
         aboutUrl: imagePreview,
         title: title,
@@ -40,7 +40,7 @@ const AboutSection = () => {
   async function getAboutInfo() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getAboutSection"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getAboutSection"
       ); // Replace with your API endpoint
 
       if (!response.data.data) {

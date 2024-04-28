@@ -42,7 +42,7 @@ const OurService = () => {
     }
 
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/updateOurService",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/updateOurService",
       [
         {
           serviceUrl: imagePreview_1,
@@ -78,7 +78,7 @@ const OurService = () => {
   async function getServiceInfo() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getOurService"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getOurService"
       ); // Replace with your API endpoint
       
 

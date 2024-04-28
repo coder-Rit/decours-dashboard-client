@@ -22,7 +22,7 @@ const LogoSection = () => {
     }
 
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/uploadLogo",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/uploadLogo",
       {
         logoUrl: imagePreview,
       }
@@ -34,7 +34,7 @@ const LogoSection = () => {
   async function getImageUrl() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getLogo"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getLogo"
       ); // Replace with your API endpoint
 
       if (!response.data.data) {

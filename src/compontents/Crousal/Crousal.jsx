@@ -34,7 +34,7 @@ const Carousel = () => {
     }
 
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/updateCarousel",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/updateCarousel",
       [
         {
           coursalUrl: imagePreview_1,
@@ -60,7 +60,7 @@ const Carousel = () => {
   async function getCrousalInfo() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getCarousel"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getCarousel"
       ); // Replace with your API endpoint
 
       if (!response.data.data) {

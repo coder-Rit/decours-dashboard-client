@@ -7,7 +7,6 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import axios from "axios";
-import DeleteIcon from "@mui/icons-material/Delete";
 import CallIcon from "@mui/icons-material/Call";
 
 function createData(email, username, mobile, id) {
@@ -20,7 +19,7 @@ export default function BasicTable() {
   async function getUserInfo() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getUsers"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getUsers"
         // "http://localhost:4000/api/v1/getUsers"
       ); // Replace with your API endpoint
 

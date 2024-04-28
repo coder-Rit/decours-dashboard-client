@@ -41,7 +41,7 @@ const Reviews = () => {
     }
 
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/updateReviews",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/updateReviews",
 
       {
         title: title,
@@ -82,7 +82,7 @@ const Reviews = () => {
   async function getReviewsInfo() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getReviews"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getReviews"
       ); // Replace with your API endpoint
 
       if (!response.data.data) {

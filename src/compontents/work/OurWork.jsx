@@ -41,7 +41,7 @@ const OurWork = () => {
       return
     }
     const response = await axios.post(
-      "https://decours-dashboard-server.onrender.com/api/v1/updateOurWork",
+      "https://decours-dashboard-server-sf8t.onrender.com/api/v1/updateOurWork",
       {
         workTitle: title_1,
         imageUrls: [
@@ -79,7 +79,7 @@ const OurWork = () => {
   async function getWorkInfo() {
     try {
       const response = await axios.get(
-        "https://decours-dashboard-server.onrender.com/api/v1/getOurWork"
+        "https://decours-dashboard-server-sf8t.onrender.com/api/v1/getOurWork"
       ); // Replace with your API endpoint
 
       if (!response.data.data) {
